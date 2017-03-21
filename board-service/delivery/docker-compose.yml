@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+
+  gradlew:
+    build:
+      context: ../
+      dockerfile: cd/gradle-dockerfile
+    image: board-service-gradlew:1.0
+
+  unit:
+    image: board-service-gradlew:1.0
+    command: clean build
+    volumes:
+      - ..:/app/
+
+  app:
+    build:
+      context: ../
+      dockerfile: cd/app-dockerfile
+    image: board-service:1.0
+    ports:
+      - 8080:8080
